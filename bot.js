@@ -15,10 +15,38 @@ client.on('message', message => {
     if (cmd == "status") {
       message.reply('I\'m online! Hello!');
     }
+    
+    /**
+      DICE ROLL FUNCTION
+    **/
     else if (cmd == "roll") {
+      let check = /^\d+$/;
       if (subcmd.split('')[0] == 'd') {
-        message.reply('not finished yet lmao')
+        let sides = subcmd.splice(1)
+        if ( check.test(sides) ) {
+          if (sides > 1) {
+            message.reply( String( Math.ceil(Math.random()*sides) ) )
+          }
+        }
+        else {
+          message.reply('You need to give a correct value for the number of sides! (Must be above 1 and be a number)')
+        }
       }
+      else if (check.test(subcmd.split('d')[0]) && check.test(subcmd.split('d')[1])) {
+        let sides = subcmd.split('d')[1]
+        if ( check.test(sides) ) {
+          if (sides > 1) {
+            message.reply( String( Math.ceil(Math.random()*sides) ) )
+          }
+        }
+        else {
+          message.reply('You need to give a correct value for the number of sides! (Must be above 1 and be a number)')
+        }
+      }
+      else {
+        message.reply('You need to use the correct format for this! (e.g. >roll 2d20 OR >roll d12)')
+      }
+      
     }
   };
 });
