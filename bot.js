@@ -23,6 +23,7 @@ client.on('message', message => {
     **/
     else if (cmd == "roll") {
       let check = /^\d+$/;
+      //
       if (subcmd.split('')[0] == 'd') {
         let sides = subcmd.split('d')[1]
         if ( check.test(sides) ) {
@@ -37,6 +38,7 @@ client.on('message', message => {
           message.reply('You need to give a correct value for the number of sides! (Must be above 1 and be a number)')
         }
       }
+      //
       else if (check.test(subcmd.split('d')[0]) && check.test(subcmd.split('d')[1])) {
         let sides = subcmd.split('d')[1]
         if ( check.test(sides) ) {
@@ -51,6 +53,7 @@ client.on('message', message => {
           message.reply('You need to give a correct value for the number of sides! (Must be above 1 and be a number)')
         }
       }
+      //
       else {
         message.reply('You need to use the correct format for this! (e.g. >roll 2d20 OR >roll d12)')
       }
