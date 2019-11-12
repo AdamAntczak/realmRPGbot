@@ -8,8 +8,8 @@ client.on('ready', () => {
 
 
 client.on('message', message => {
-  if (message.substring(0, 1) == '>') {
-    let args = message.substring(1).split(' ');
+  if (message.content.substring(0, 1) == '>') {
+    let args = message.content.substring(1).split(' ');
     let cmd = args[0];
     if (cmd == "status") {
       message.reply('I\'m online! Hello!');
