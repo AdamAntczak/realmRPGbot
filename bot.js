@@ -14,6 +14,7 @@ client.on('message', message => {
     if (cmd === "status") {
       message.reply('I\'m online! Hello!');
     }
+  };
 });
 
  
