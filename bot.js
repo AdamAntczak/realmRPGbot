@@ -50,7 +50,7 @@ client.on('message', message => {
           if (sides > 1) {
             let results = 'Your rolls are: **';
             for (let n = 0; n < dice; n++) {
-              results.concat(String( Math.ceil(Math.random()*sides) ))
+              results = results.concat( String( Math.ceil(Math.random()*sides)))
               if (n+1<dice) {
                 results = results.concat(", ")
               }
