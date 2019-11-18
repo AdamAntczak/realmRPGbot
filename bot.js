@@ -29,7 +29,7 @@ client.on('message', message => {
         let sides = subcmd.split('d')[1]
         if ( check.test(sides) ) {
           if (sides > 1) {
-            message.reply( String( Math.ceil(Math.random()*sides) ) )
+            message.reply("You rolled: **" + String( Math.ceil(Math.random()*sides) ) + ".**" )
           }
           else {
             message.reply('The number of sides needs to be above 1!')
@@ -41,17 +41,26 @@ client.on('message', message => {
       }
       //
       else if (check.test(subcmd.split('d')[0]) && check.test(subcmd.split('d')[1])) {
-        let sides = subcmd.split('d')[1]
-        if ( check.test(sides) ) {
+        if (subcmd.split('d')[0] < 1) {
+          message.reply('The number of dice rolled must be 1 or above!')
+        }
+        else {
+          let dice = subcmd.split('d')[0]
+          let sides = subcmd.split('d')[1]
           if (sides > 1) {
-            message.reply( String( Math.ceil(Math.random()*sides) ) )
+            let results = 'Your rolls are: **';
+            for (let n = 0; n < dice; n++) {
+              results.concat(String( Math.ceil(Math.random()*sides) ))
+              if (n+1<dice) {
+                results.concat(", ")
+              }
+            }
+            results.concat('.**')
+            message.reply( results )
           }
           else {
             message.reply('The number of sides needs to be above 1!')
           }
-        }
-        else {
-          message.reply('You need to give a correct value for the number of sides! (Must be above 1 and be a number)')
         }
       }
       //
