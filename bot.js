@@ -52,10 +52,10 @@ client.on('message', message => {
             for (let n = 0; n < dice; n++) {
               results.concat(String( Math.ceil(Math.random()*sides) ))
               if (n+1<dice) {
-                results.concat(", ")
+                results = results.concat(", ")
               }
             }
-            results.concat('.**')
+            results = results.concat('.**')
             message.reply( results )
           }
           else {
