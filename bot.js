@@ -6,8 +6,10 @@ client.on('ready', () => {
   console.log('I am fully charged!');
 });
 
-
+const prefix = '>';
 client.on('message', message => {
+  if (message.author.bot) return;
+
   if (message.content.substring(0, 1) == '>') {
     let args = message.content.substring(1).split(' ');
     let cmd = args[0];
@@ -71,7 +73,7 @@ client.on('message', message => {
     };//closes if statement checking if cmd is 'roll'
   };//closes if statement checking for '>'
   if (message.content == 'meow') {
-    
+    message.channel.send('meow');
   };
 });//close client.on
 
