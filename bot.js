@@ -70,6 +70,9 @@ client.on('message', message => {
       
     };//closes if statement checking if cmd is 'roll'
   };//closes if statement checking for '>'
+  if (message.content == 'meow') {
+    message.reply('meow meow');
+  };
 });//close client.on
 
  
