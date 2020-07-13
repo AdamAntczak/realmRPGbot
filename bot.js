@@ -11,11 +11,9 @@ let insertNewPlayer = db.prepare("INSERT INTO inventory(name, items) VALUES (?,?
 let checkPlayerInventory = db.prepare("SELECT items FROM inventory WHERE name = ?");
 let addPlayerInventory = db.prepare("UPDATE inventory SET items = (?) WHERE name = (?)")
 
-function delayReply(firstFunction, callback) {
-  firstFunction();
-  return callback();
-}
+var feedback = '';
 
+var timer;
 
 client.on('ready', () => {
   console.log('I am fully charged!');
@@ -101,20 +99,27 @@ client.on('message', message => {
     else if (cmd == "addPlayer") {
       if (message.member.roles.some(role => role.name === 'Realm Master')) {
         if (subcmd != '') {
-          let feedback = insertNewPlayer.run(String(subcmd), '');
+          feedback = insertNewPlayer.run(String(subcmd), '');
           message.channel.send('Player successfully added.');
         }
       };
     }//closes if statement for 'add'
     else if (cmd == "checkInventory") {
       if (subcmd != '') {
-        
-        message.channel.send('Current inventory items: ' + String( checkPlayerInventory.get(String(subcmd)) ) )
+        feedback = '';
+        feedback = checkPlayerInventory.get(String(subcmd));
+        function waitUntilComplete() {
+          if (feedback != '') {
+            message.channel.send('Current inventory items: ' + String(feedback))
+            clearInterval(timer);
+          }
+        }//endfunction
+        timer = setInterval(waitUntilComplete, 100)
       }
     }//closes if statement for 'checkInventory'
     else if (cmd == "addItem") {
       if (subcmd != '') {
-        let feedback = addPlayerInventory.run(args[2], String(subcmd));
+        feedback = addPlayerInventory.run(args[2], String(subcmd));
         message.channel.send('Added item to inventory.')
       }
     }//closes if statement for 'addItem'
