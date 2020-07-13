@@ -11,6 +11,11 @@ let insertNewPlayer = db.prepare("INSERT INTO inventory(name, items) VALUES (?,?
 let checkPlayerInventory = db.prepare("SELECT items FROM inventory WHERE name = ?");
 let addPlayerInventory = db.prepare("UPDATE inventory SET items = (?) WHERE name = (?)")
 
+function delayReply(firstFunction, callback) {
+  firstFunction();
+  return callback();
+}
+
 
 client.on('ready', () => {
   console.log('I am fully charged!');
@@ -104,7 +109,7 @@ client.on('message', message => {
     else if (cmd == "checkInventory") {
       if (subcmd != '') {
         let feedback = checkPlayerInventory.get(String(subcmd));
-        message.channel.send('Current inventory items: '+String(feedback.items));
+        setTimeout(function() {message.channel.send('Current inventory items: '+String(feedback.items))}, 1000);
       }
     }//closes if statement for 'checkInventory'
     else if (cmd == "addItem") {
