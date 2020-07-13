@@ -111,6 +111,7 @@ client.on('message', message => {
         function waitUntilComplete() {
           if (feedback != '') {
             message.channel.send('Current inventory items: ' + String(feedback))
+            console.log(feedback)
             clearInterval(timer);
           }
         }//endfunction
