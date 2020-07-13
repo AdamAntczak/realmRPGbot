@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const Database = require('better-sqlite3');
 
 const client = new Discord.Client();
-const db = new Database("inventory.db");
+let db = new Database("inventory.db");
 
 let initDatabase = db.prepare("CREATE TABLE IF NOT EXISTS inventory(name text, items text)");
 initDatabase.run();
@@ -10,6 +10,7 @@ initDatabase.run();
 let insertNewPlayer = db.prepare("INSERT INTO inventory(name, items) VALUES (?,?)");
 let checkPlayerInventory = db.prepare("SELECT items FROM inventory WHERE name = ?");
 let addPlayerInventory = db.prepare("UPDATE inventory SET items = (?) WHERE name = (?)")
+db.close();
 
 var feedback = '';
 
@@ -99,19 +100,23 @@ client.on('message', message => {
     else if (cmd == "addPlayer") {
       if (message.member.roles.some(role => role.name === 'Realm Master')) {
         if (subcmd != '') {
+          let db = new Database("inventory.db");
           feedback = insertNewPlayer.run(String(subcmd), '');
           message.channel.send('Player successfully added.');
+          db.close();
         }
       };
     }//closes if statement for 'add'
     else if (cmd == "checkInventory") {
       if (subcmd != '') {
+        const db = new Database("inventory.db");
         feedback = '';
         feedback = checkPlayerInventory.get(String(subcmd));
         function waitUntilComplete() {
           if (feedback != '') {
             message.channel.send('Current inventory items: ' + String(feedback.items));
             clearInterval(timer);
+            db.close();
           }
         }//endfunction
         timer = setInterval(waitUntilComplete, 100)
@@ -119,6 +124,7 @@ client.on('message', message => {
     }//closes if statement for 'checkInventory'
     else if (cmd == "addItem") {
       if (subcmd != '') {
+        const db = new Database("inventory.db");
         feedback = '';
         feedback = checkPlayerInventory.get(String(subcmd));
         function waitUntilComplete() {
@@ -129,6 +135,7 @@ client.on('message', message => {
             else {
               addPlayerInventory.run( (String(feedback.items) +", "+ String(args[2])), String(subcmd));
             }
+            db.close();
             clearInterval(timer);
           }
         }//endfunction
