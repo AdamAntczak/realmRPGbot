@@ -108,8 +108,8 @@ client.on('message', message => {
     }//closes if statement for 'add'
     else if (cmd == "checkInventory") {
       if (subcmd != '') {
-        let feedback = checkPlayerInventory.get(String(subcmd));
-        setTimeout(function() {message.channel.send('Current inventory items: '+String(feedback.items))}, 1000);
+        
+        message.channel.send('Current inventory items: ' + String( checkPlayerInventory.get(String(subcmd)) ) )
       }
     }//closes if statement for 'checkInventory'
     else if (cmd == "addItem") {
