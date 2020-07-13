@@ -87,7 +87,7 @@ client.on('message', message => {
     else if (cmd == "add") {
       if (message.member.roles.some(role => role.name === 'Realm Master')) {
         if (subcmd != '') {
-          let feedback = insertNewPlayer(String(subcmd), '');
+          let feedback = insertNewPlayer.run(String(subcmd), '');
           message.channel.send('amount of rows changed: '+String(feedback.changes));
         }
       };
