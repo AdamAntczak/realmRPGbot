@@ -8,6 +8,8 @@ let initDatabase = db.prepare("CREATE TABLE IF NOT EXISTS inventory(name text, i
 initDatabase.run();
 
 let insertNewPlayer = db.prepare("INSERT INTO inventory(name, items) VALUES (?,?)");
+let checkPlayerInventory = db.prepare("SELECT items FROM inventory WHERE name = ?");
+let addPlayerInventory = db.prepare("UPDATE table SET items = (?), WHERE name = (?)")
 
 
 client.on('ready', () => {
@@ -84,15 +86,33 @@ client.on('message', message => {
       }
        
     }//closes if statement checking if cmd is 'roll'
-    else if (cmd == "add") {
+    
+    /**
+    
+      INVENTORY MANAGEMENT COMMANDS
+    
+    **/
+    
+    else if (cmd == "addPlayer") {
       if (message.member.roles.some(role => role.name === 'Realm Master')) {
         if (subcmd != '') {
           let feedback = insertNewPlayer.run(String(subcmd), '');
-          message.channel.send('amount of rows changed: '+String(feedback.changes));
+          message.channel.send('Player successfully added.');
         }
       };
-
     };//closes if statement for 'add'
+    else if (cmd == "checkInventory") {
+      if (subcmd != '') {
+        let feedback = checkPlayerInventory.get(String(subcmd));
+        message.channel.send('Current inventory items: '+String(feedback.items));
+      }
+    }
+    else if (cmd == "addItem") {
+      if (subcmd != '') {
+        let feedback = addPlayerInventory.run(args[2], String(subcmd));
+        message.channel.send('Added item to inventory.')
+      }
+    }
   };//closes if statement checking for '>'
   if (message.content == 'meow') {
     message.channel.send('meow');
