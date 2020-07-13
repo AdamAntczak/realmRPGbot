@@ -100,19 +100,19 @@ client.on('message', message => {
           message.channel.send('Player successfully added.');
         }
       };
-    };//closes if statement for 'add'
+    }//closes if statement for 'add'
     else if (cmd == "checkInventory") {
       if (subcmd != '') {
         let feedback = checkPlayerInventory.get(String(subcmd));
         message.channel.send('Current inventory items: '+String(feedback.items));
       }
-    }
+    }//closes if statement for 'checkInventory'
     else if (cmd == "addItem") {
       if (subcmd != '') {
         let feedback = addPlayerInventory.run(args[2], String(subcmd));
         message.channel.send('Added item to inventory.')
       }
-    }
+    }//closes if statement for 'addItem'
   };//closes if statement checking for '>'
   if (message.content == 'meow') {
     message.channel.send('meow');
