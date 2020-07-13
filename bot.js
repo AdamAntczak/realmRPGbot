@@ -4,8 +4,11 @@ const Database = require('better-sqlite3');
 const client = new Discord.Client();
 const db = new Database("inventory.db");
 
-let initDatabase = db.prepare("CREATE TABLE IF NOT EXISTS highscores(name text, score int)");
-initDatabase.run()
+let initDatabase = db.prepare("CREATE TABLE IF NOT EXISTS inventory(name text, items text)");
+initDatabase.run();
+
+let insertNewPlayer = db.prepare("INSERT INTO inventory(name, items) VALUES (?,?)");
+
 
 client.on('ready', () => {
   console.log('I am fully charged!');
@@ -76,6 +79,12 @@ client.on('message', message => {
       }
       
     };//closes if statement checking if cmd is 'roll'
+    else if (cmd == "add") {
+      if (message.member.roles.some(role => role.name === 'Realm Master')) {
+        message.reply("bonk");
+      };
+
+    };//closes if statement for 'add'
   };//closes if statement checking for '>'
   if (message.content == 'meow') {
     message.channel.send('meow');
