@@ -123,7 +123,12 @@ client.on('message', message => {
         feedback = checkPlayerInventory.get(String(subcmd));
         function waitUntilComplete() {
           if (feedback != '') {
-            addPlayerInventory.run( (String(feedback.items) +", "+ String(args[2])), String(subcmd));
+            if (feedback.items == '') {
+              addPlayerInventory.run( String(args[2]), String(subcmd));
+            }
+            else {
+              addPlayerInventory.run( (String(feedback.items) +", "+ String(args[2])), String(subcmd));
+            }
             clearInterval(timer);
           }
         }//endfunction
