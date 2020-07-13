@@ -1,13 +1,13 @@
 const Discord = require('discord.js');
-const Database = require('better-sqlite3');
+//const Database = require('better-sqlite3');
 
 const client = new Discord.Client();
-const db = new Database("inventory.db");
+//const db = new Database("inventory.db");
 
-let initDatabase = db.prepare("CREATE TABLE IF NOT EXISTS inventory(name text, items text)");
-initDatabase.run();
+//let initDatabase = db.prepare("CREATE TABLE IF NOT EXISTS inventory(name text, items text)");
+//initDatabase.run();
 
-let insertNewPlayer = db.prepare("INSERT INTO inventory(name, items) VALUES (?,?)");
+//let insertNewPlayer = db.prepare("INSERT INTO inventory(name, items) VALUES (?,?)");
 
 
 client.on('ready', () => {
@@ -18,7 +18,7 @@ const prefix = '>';
 client.on('message', message => {
   if (message.author.bot) return;
 
-  if (message.content.startsWith('>')) {
+  if (message.content.startsWith(prefix)) {
     let args = message.content.substring(1).split(' ');
     let cmd = args[0];
     let subcmd;
