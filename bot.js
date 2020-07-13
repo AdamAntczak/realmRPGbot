@@ -110,8 +110,8 @@ client.on('message', message => {
         feedback = checkPlayerInventory.get(String(subcmd));
         function waitUntilComplete() {
           if (feedback != '') {
-            message.channel.send('Current inventory items: ' + String(feedback))
-            console.log(feedback)
+            message.channel.send('Current inventory items: ' + String(feedback.items))
+            console.log(feedback.items)
             clearInterval(timer);
           }
         }//endfunction
