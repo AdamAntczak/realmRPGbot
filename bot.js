@@ -9,7 +9,7 @@ initDatabase.run();
 
 let insertNewPlayer = db.prepare("INSERT INTO inventory(name, items) VALUES (?,?)");
 let checkPlayerInventory = db.prepare("SELECT items FROM inventory WHERE name = ?");
-let addPlayerInventory = db.prepare("UPDATE table SET items = (?), WHERE name = (?)")
+let addPlayerInventory = db.prepare("UPDATE inventory SET items = (?), WHERE name = (?)")
 
 
 client.on('ready', () => {
