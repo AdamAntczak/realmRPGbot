@@ -120,7 +120,7 @@ client.on('message', message => {
     }//closes if statement for 'checkInventory'
     else if (cmd == "addItem") {
       if (subcmd != '') {
-        feedback = addPlayerInventory.run(args[2], String(subcmd));
+        feedback = addPlayerInventory.run(String(args[2]), String(subcmd));
         message.channel.send('Added item to inventory.')
       }
     }//closes if statement for 'addItem'
