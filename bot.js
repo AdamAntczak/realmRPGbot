@@ -110,8 +110,7 @@ client.on('message', message => {
         feedback = checkPlayerInventory.get(String(subcmd));
         function waitUntilComplete() {
           if (feedback != '') {
-            message.channel.send('Current inventory items: ' + String(feedback.items))
-            console.log(feedback.items)
+            message.channel.send('Current inventory items: ' + String(feedback.items));
             clearInterval(timer);
           }
         }//endfunction
@@ -120,7 +119,16 @@ client.on('message', message => {
     }//closes if statement for 'checkInventory'
     else if (cmd == "addItem") {
       if (subcmd != '') {
-        feedback = addPlayerInventory.run(String(args[2]), String(subcmd));
+        feedback = '';
+        feedback = checkPlayerInventory.get(String(subcmd));
+        function waitUntilComplete() {
+          if (feedback != '') {
+            addPlayerInventory.run( (String(feedback.items) +", "+ String(args[2])), String(subcmd));
+            clearInterval(timer);
+          }
+        }//endfunction
+        timer = setInterval(waitUntilComplete, 100);
+        
         message.channel.send('Added item to inventory.')
       }
     }//closes if statement for 'addItem'
