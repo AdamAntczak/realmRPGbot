@@ -1,6 +1,11 @@
 const Discord = require('discord.js');
-const client = new Discord.Client();
+const Database = require('better-sqlite3');
 
+const client = new Discord.Client();
+const db = new Database("inventory.db");
+
+let initDatabase = db.prepare("CREATE TABLE IF NOT EXISTS highscores(name text, score int)");
+initDatabase.run()
 
 client.on('ready', () => {
   console.log('I am fully charged!');
@@ -10,7 +15,7 @@ const prefix = '>';
 client.on('message', message => {
   if (message.author.bot) return;
 
-  if (message.content.substring(0, 1) == '>') {
+  if (message.content.startsWith('>')) {
     let args = message.content.substring(1).split(' ');
     let cmd = args[0];
     let subcmd;
