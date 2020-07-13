@@ -1,3 +1,5 @@
+//MAKE SURE DATABASE IS OPEN BEFORE SQL IS CALLED
+
 const Discord = require('discord.js');
 const Database = require('better-sqlite3');
 
@@ -101,9 +103,14 @@ client.on('message', message => {
       if (message.member.roles.some(role => role.name === 'Realm Master')) {
         if (subcmd != '') {
           let db = new Database("inventory.db");
-          feedback = insertNewPlayer.run(String(subcmd), '');
-          message.channel.send('Player successfully added.');
-          db.close();
+          function waitUntilComplete() {
+            if (db != undefined) {
+              feedback = insertNewPlayer.run(String(subcmd), '');
+              message.channel.send('Player successfully added.');
+              db.close();
+            }
+          }//endfunction
+          timer = setInterval(waitUntilComplete, 100)
         }
       };
     }//closes if statement for 'add'
