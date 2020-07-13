@@ -78,7 +78,7 @@ client.on('message', message => {
         message.reply('You need to use the correct format for this! (e.g. >roll 2d20 OR >roll d12)')
       }
       
-    };//closes if statement checking if cmd is 'roll'
+    }//closes if statement checking if cmd is 'roll'
     else if (cmd == "add") {
       if (message.member.roles.some(role => role.name === 'Realm Master')) {
         message.reply("bonk");
