@@ -37,7 +37,7 @@ client.on('message', message => {
       message.reply('I\'m online! Hello!');
     }
     else if (cmd == "help") {
-      message.channel.send('Current commands:\n**status:** Shows if bot is online (if you can read this then don\'t bother lol)\n**help:** Displays this menu\n**roll:** Rolls a die/dice, syntax is >roll [number of dice]d[number of sides]')
+      message.channel.send('Current commands:   \n**status:** Shows if bot is online (if you can read this then don\'t bother lol)   \n**help:** Displays this menu\n**roll:** Rolls a die/dice, syntax is >roll [number of dice]d[number of sides]   \n')
     }
     
     /**
@@ -115,7 +115,13 @@ client.on('message', message => {
           }//endfunction
           timer = setInterval(waitUntilComplete, 100)
         }
-      };
+        else {
+          message.channel.send('You need to provide a valid player!')
+        }
+      }
+      else {
+        message.channel.send('You must have the Realm Master role to use this!')
+      }
     }//closes if statement for 'add'
     else if (cmd == "checkInventory") {
       if (subcmd != '') {
@@ -130,6 +136,9 @@ client.on('message', message => {
           }
         }//endfunction
         timer = setInterval(waitUntilComplete, 100)
+      }
+      else {
+        message.channel.send('You need to provide a valid player!');
       }
     }//closes if statement for 'checkInventory'
     else if (cmd == "addItem") {
@@ -152,6 +161,9 @@ client.on('message', message => {
         timer = setInterval(waitUntilComplete, 100);
         
         message.channel.send('Added item to inventory.')
+      }
+      else {
+        message.channel.send('Syntax is invalid, make sure you are adding an item correctly')
       }
     }//closes if statement for 'addItem'
   };//closes if statement checking for '>'
