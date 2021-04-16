@@ -36,6 +36,9 @@ client.on('message', message => {
     if (cmd == "status") {
       message.reply('I\'m online! Hello!');
     }
+    else if (cmd == "help") {
+      message.channel.send('Current commands:\n**status:** Shows if bot is online (if you can read this then don\'t bother lol)\n**help:** Displays this menu\n**roll:** Rolls a die/dice, syntax is >roll [number of dice]d[number of sides]')
+    }
     
     /**
       DICE ROLL FUNCTION
