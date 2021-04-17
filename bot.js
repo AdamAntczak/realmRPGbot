@@ -103,7 +103,7 @@ client.on('message', message => {
     **/
     
     else if (cmd == "addPlayer") {
-      if (message.member.roles.some(role => role.name === 'Realm Master')) {
+      if (message.member.roles.cache.some(role => role.name === 'Realm Master')) {
         if (subcmd != '') {
           let db = new Database("inventory.db");
           function waitUntilComplete() {
