@@ -106,14 +106,12 @@ client.on('message', message => {
       if (message.member.roles.cache.some(role => role.name === 'Realm Master')) {
         if (subcmd != '') {
           let db = new Database("inventory.db");
-          function waitUntilComplete() {
-            if (db != undefined) {
-              feedback = insertNewPlayer.run(String(subcmd), '');
-              message.channel.send('Player successfully added.');
-              db.close();
-            }
-          }//endfunction
-          timer = setInterval(waitUntilComplete, 100)
+          if (db != undefined) {
+            feedback = insertNewPlayer.run(String(subcmd), '');
+            message.channel.send('Player successfully added.');
+            db.close();
+          }
+         
         }
         else {
           message.channel.send('You need to provide a valid player!')
@@ -128,14 +126,11 @@ client.on('message', message => {
         const db = new Database("inventory.db");
         feedback = '';
         feedback = checkPlayerInventory.get(String(subcmd));
-        function waitUntilComplete() {
-          if (feedback != '') {
-            message.channel.send('Current inventory items: ' + String(feedback.items));
-            clearInterval(timer);
-            db.close();
-          }
-        }//endfunction
-        timer = setInterval(waitUntilComplete, 100)
+        if (feedback != '') {
+          message.channel.send('Current inventory items: ' + String(feedback.items));
+          clearInterval(timer);
+          db.close();
+        }
       }
       else {
         message.channel.send('You need to provide a valid player!');
