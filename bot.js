@@ -108,10 +108,8 @@ client.on('message', message => {
           let db = new Database("inventory.db");
           function waitUntilComplete() {
             if (db != undefined) {
-              db.serialize(() => {
-                feedback = insertNewPlayer.run(String(subcmd), '');
-                message.channel.send('Player successfully added.');
-              });
+              feedback = insertNewPlayer.run(String(subcmd), '');
+              message.channel.send('Player successfully added.');
               db.close();
             }
           }//endfunction
