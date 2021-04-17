@@ -106,7 +106,7 @@ client.on('message', message => {
       if (message.member.roles.cache.some(role => role.name === 'Realm Master')) {
         if (subcmd != '') {
           let db = new Database("inventory.db");
-          if (db != undefined) {
+          if (db.open) {
             feedback = insertNewPlayer.run(String(subcmd), '');
             message.channel.send('Player successfully added.');
             db.close();
